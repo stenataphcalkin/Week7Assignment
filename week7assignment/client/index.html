@@ -1,13 +1,86 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>client</title>
+    <link rel="stylesheet" href="./src/style.css" />
+    <!-- <script type="module" src="./src/main.js" defer></script> -->
+    <title>RATE THINE ADVENTURER - Khasrae Seleni</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jim+Nightshade&family=Reenie+Beanie&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="/assets/icosahedron.png">
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <div id="app"></div>
+<!-- ============================================ -->
+
+<!-- Title - on full app implement nav menu to go to other party members and implement LFG/LFS facility. Possible future project idea to flesh out -->
+<div class="container">
+  <div class="header" aria-label="Rate Thine Aventurer Header">
+    <h1>Rate thine Adventurer</h1>
+
+  </div>
+  
+  <div class="rma-submission-form-area">
+      <h2>KHASRAE SELENI</h2>
+      <!-- <body id="adventurerPitch">Enjoyed adventuring with Khasrae? Have any memorable moments with them, or just want to share what they were great at (or not), let your fellow adventurers know below!<body>; -->
+        <!-- The above has been opted into the comment feedback area instead -->
+      <br>
+    <div class="rma-image-form-grid">
+      <div class="rma-form-segment">
+        <form id="rma-form" aria-label="Adventurer image and review window">
+
+          <label for="adventurerName">Name:</label>
+          <input type="text" name="adventurerName" aria-label="Adventurer Name text box" maxlength="50" placeholder="What do others call you? (Keep it polite, please)"/>
+
+          <label for="adventurerSpecies">Species:</label>
+          <input type="text" name="adventurerSpecies" aria-label="Adventurer Species text box" maxlength="50" placeholder="Dread Gazebo, Elf, etc."/>
+
+          <label for="adventurerClass">Class:</label>
+          <input type="text" name="adventurerClass" aria-label="Adventurer Class text box" maxlength="50" placeholder="Bard, Murder-Hobo etc."/>
+
+          <label for="reviewForm">Review:</label>
+         <textarea outline="none" style="height:70px" name="reviewForm" aria-label="Adventurer Review text box" maxlength="300" placeholder="What were they like on your adventure? What did you like about them, or not? How can they improve?"></textarea>
+
+          <br>
+          <button type="submit" class="reviewButton">Send</button>
+        </form>
+      </div>
+
+      <div class="rma-image-segment">
+      <img src="assets/Khasrae-poster.jpg" alt="Images go here" style="height:100%; width:auto;">
+
+      </div>
+    </div>
+  </div> <div class="mid-page-buffer">
+    
+  </div>
+
+  <div class="returned-submission-forms">
+    <h3>Reviews for Khasrae Seleni</h3>
+    </div>
+
+  <div class="footer" aria-label="Rate Thine Aventurer Header">
+    <body>Rate Thine Adventurer - A Dice & Daftness inspired project by <a id="github" href="https://github.com/stenataphcalkin">Stenataphcalkin</a></body>
+  </div>
+
+  <div class="left-buffer">
+  </div>
+  
+  <div class="right-buffer">
+  </div>
+</div>
+   
+<!-- ============================================ -->
+<!-- IN JS to append to returned-submissioned-forms-->
+    <!-- Loop to fetch and create each review -->
+    <!-- Review contents -->
+    <!-- Append reviews -->
+
+</div>
+
+ 
   </body>
 </html>
