@@ -6,56 +6,43 @@
 
 //? Stretch: I want a route to DELETE data
 //? Stretch: I want a route to UPDATE data
+import express from "express";
+import cors from "cors";
+import { db } from "./dbConnection.js";
 
-// //DEMO DATA BELOW
-// //imports
-// import express from "express";
-// import cors from "cors";
-// import { db } from "./dbConnection.js";
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-// //initialise express
-// const app = express();
+const PORT = 8080;
+app.listen(PORT, function () {
+  console.info(` Server is running in port ${PORT}`);
+});
 
-// //config express with JSON
-// //config cors in express
-// app.use(express.json());
-// app.use(cors());
+app.get("/", function (req, res) {
+  res.json({ message: "Welcome to the server. GET comfy" });
+});
 
-// //set up a port
-// const PORT = 8080;
+//=============================================
 
-// app.listen(PORT, () => {
-//   console.info(`Server is running in port ${PORT}`);
-// });
-
-// //root route
-// //GET --> READ
-// app.get("/", (_, res) => {
-//   //   res.json({ message: "Welcome to the server. GET comfy" });
-//   res.send("Welcome");
-// });
-
-// //=============================================
-
-// //routes
-
-// //TODO: read data from the biscuits table
-// app.get("/biscuits", async (_, res) => {
-//   //error handling
-//   //try ... catch
-//   try {
-//     //query the database to send me the biscuits data
-//     //test your query in the SQL editor first to check syntax
-//     const data = await db.query(
-//       `SELECT biscuit_name, src, description, crunchiness FROM biscuits;`
-//     );
-//     //wrangling the database data Result object
-//     res.json(data.rows);
-//   } catch (error) {
-//     console.error("Error in the biscuits route", error);
-//     res.status(500).json({ success: false });
-//   }
-// });
+// routes
+//TODO: read data from the biscuits table
+app.get("/biscuits", async (_, res) => {
+  //error handling
+  //try ... catch
+  try {
+    //query the database to send me the biscuits data
+    //test your query in the SQL editor first to check syntax
+    const data = await db.query(
+      `SELECT biscuit_name, src, description, crunchiness FROM biscuits;`
+    );
+    //wrangling the database data Result object
+    res.json(data.rows);
+  } catch (error) {
+    console.error("Error in the biscuits route", error);
+    res.status(500).json({ success: false });
+  }
+});
 
 // //TODO: read data from biscuits and customers
 // app.get("/biscuits-customers", async (_, res) => {

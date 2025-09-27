@@ -26,7 +26,10 @@ This error happened last week with an error 254 too, which caused concern.
 
 Turned off Render failure notifications / emails for my own sanity.
 
-Resources:
+Sat 3pm: Render is still failing to resolve the error code 1. Stating that index.html can't be resolved. Will revisit later.
+
+# Resources:
+
 ReactRouterDom
 https://www.youtube.com/watch?v=EJVHAgmdzRY
 createBrowserRouter, loader and useLoaderData you can create an example that works. https://www.reddit.com/r/reactjs/comments/1f9kp1b/i_need_help_with_dynamic_routing_for_reactjs_apps/

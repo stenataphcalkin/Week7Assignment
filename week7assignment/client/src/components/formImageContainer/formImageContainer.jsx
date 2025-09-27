@@ -43,16 +43,22 @@ const AdventurerReviewForm = () => {
 
   return (
     <div className="rma-submission-form-area">
-      <h2>why is this not updating</h2>
-      <br />
+      {/* IMAGE CONTAINER */}
+      <div className="rma-image-segment">
+        <img src="./src/Khasrae-poster.jpg" alt="Khasrae's Poster" />
+      </div>
 
+      {/* REVIEW SEGMENT */}
+      <h2>Submit thy review</h2>
       <div className="rma-image-form-grid">
         <div className="rma-form-segment">
+          {/* FORM FIELDS */}
           <form
             id="rma-form"
             onSubmit={handleSubmit}
             aria-label="Adventurer image and review area"
           >
+            {/* NAME */}
             <label htmlFor="adventurerName">Name:</label>
             <input
               id="adventurerName"
@@ -64,6 +70,8 @@ const AdventurerReviewForm = () => {
               placeholder="What do others call you? (Keep it polite, please)"
               aria-label="Adventurer Name text box"
             />
+
+            {/* SPECIES */}
             <label htmlFor="adventurerSpecies">Species:</label>
             <input
               id="adventurerSpecies"
@@ -76,6 +84,7 @@ const AdventurerReviewForm = () => {
               aria-label="Adventurer Species text box"
             />
 
+            {/* CLASS */}
             <label htmlFor="adventurerClass">Class:</label>
             <input
               id="adventurerClass"
@@ -88,18 +97,20 @@ const AdventurerReviewForm = () => {
               aria-label="Adventurer Class text box"
             />
 
+            {/* TEXT REVIEW */}
             <label htmlFor="reviewForm">Review:</label>
             <textarea
               id="reviewForm"
               name="reviewForm"
               value={formData.reviewForm}
               onChange={handleChange}
-              rows="3" // Using rows attribute instead of style
+              rows="3"
               maxLength={300}
               placeholder="What were they like on your adventure? What did you like about them, or not? How can they improve?"
               aria-label="Adventurer Review text box"
             ></textarea>
 
+            {/* SUBMIT BUTTON */}
             <br />
             <button
               type="submit"
@@ -109,13 +120,6 @@ const AdventurerReviewForm = () => {
               {isSubmitting ? "Sending" : "Send"}
             </button>
           </form>
-        </div>
-
-        <div className="rma-image-segment">
-          <img
-            src="https://placehold.co/400x400?text=adventurer+placeholder+image"
-            alt="ADVENTURER-PLACEHOLDER-ALT-TEXT"
-          />
         </div>
       </div>
     </div>

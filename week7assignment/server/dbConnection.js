@@ -8,7 +8,7 @@ import pg from "pg";
 dotenv.config();
 
 //set up a Pool with pg
-const dbConnection = import.meta.env.DATABASE_URL;
+const dbConnection = import.meta.VITE_DATABASE_URL;
 
 export const db = new pg.Pool({
   connectionString: dbConnection,
