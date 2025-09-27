@@ -1,0 +1,27 @@
+import React, { useState, useEffect } from "react";
+
+function ReviewerList() {
+  const [rtareviewers, setrtareviewers] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/reviews");
+  }, []);
+
+  //
+  return (
+    <div>
+      <h1>All Reviews</h1>
+      {rtareviewers.map((review, index) => (
+        <div key={index}>
+          <p>
+            {rtareviewers.name} a {rtareviewers.species}{" "}
+            {rtareviewers.heroclass}. Left the review{" "}
+            {rtareviewers.textfeedback}.
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default ReviewerList;

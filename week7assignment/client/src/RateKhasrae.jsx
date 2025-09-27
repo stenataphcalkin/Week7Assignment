@@ -16,14 +16,3 @@ export default function RateKhasrae() {
     </>
   );
 }
-
-// // Need to alter the below to allow for the above to run
-// function RateKhasrae() {
-//   return (
-//     <>
-
-//     </>
-//   );
-// }
-
-// export default App;

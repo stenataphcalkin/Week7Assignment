@@ -1,15 +1,9 @@
-//TODO: set up the database pool
-
-//imports
-import dotenv from "dotenv";
 import pg from "pg";
+import dotenv from "dotenv";
 
-//config dotenv
 dotenv.config();
-
-//set up a Pool with pg
-const dbConnection = import.meta.VITE_DATABASE_URL;
+const dbConnectionstring = process.env.DATABASE_URL;
 
 export const db = new pg.Pool({
-  connectionString: dbConnection,
+  connectionString: dbConnectionstring,
 });

@@ -1,123 +1,137 @@
-//set up a server
-
-//===================================================
-// TODO: I want a route to READ data (you can have more than one)
-// TODO: I want a route to CREATE data
-
-//? Stretch: I want a route to DELETE data
-//? Stretch: I want a route to UPDATE data
 import express from "express";
 import cors from "cors";
 import { db } from "./dbConnection.js";
 
 const app = express();
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 
+//Set port
 const PORT = 8080;
 app.listen(PORT, function () {
   console.info(` Server is running in port ${PORT}`);
 });
 
+// Root welcome
 app.get("/", function (req, res) {
-  res.json({ message: "Welcome to the server. GET comfy" });
+  res.json({ message: "Welcome to Rate Thine Adventurer." });
 });
 
-//=============================================
+//Initial data fetch test during troubleshooting
+// app.get("/khasrae", async (req, res) => {
+//   try {
+//     const result = await db.query("SELECT * FROM khasrae");
+//     res.json(result.rows);
+//   } catch (error) {
+//     console.error("Error in the GET /khasrae route:", error);
+//     res
+//       .status(500)
+//       .json({ success: false, message: "Unable to retrieve Khasrae's data" });
+//   }
+// });
 
-// routes
-//TODO: read data from the biscuits table
-app.get("/biscuits", async (_, res) => {
-  //error handling
-  //try ... catch
+//! I had attempted to join the databases but for some reason it is causing me an absolute headache, despite doing so previously with this code in the workshops for another set of tables:
+// -- SELECT tamers.id AS tamer_id, tamers.name AS tamer_name, digimon.name AS digimon_name
+// --   FROM tamers tamers JOIN digimon ON digimon.tamer_id = tamers.id
+
+// --  SELECT "RTAAdventurers"."id" AS "RTAAdventurer_id", "RTAAdventurers"."name" AS "RTAAdventurer_name", "RTAReviewers"."name" AS "RTAReviewers_name" FROM "RTAAdventurers" JOIN "RTAReviewers" ON "RTAReviewers"."RTAAdventurer_id" = "RTAAdventurers"."id";
+
+//!I have since tried this with the following, and it still refuses to link / join the tables permanently
+// SELECT
+//     r.name,
+//     r.heroclass,
+//     r.species,
+//     r.textfeedback AS review
+// FROM
+//     rtareviewers AS r
+// JOIN
+//     rtaadventurers AS a
+// ON
+//     r.adventurerid = a.id  -- This correctly links reviews to adventurers
+// WHERE
+//     a.id = 1;
+
+//Adventurer being reviewed
+app.get("/rtaadventurers", async (req, res) => {
   try {
-    //query the database to send me the biscuits data
-    //test your query in the SQL editor first to check syntax
-    const data = await db.query(
-      `SELECT biscuit_name, src, description, crunchiness FROM biscuits;`
+    const result = await db.query(
+      "SELECT name, class, species FROM rtaadventurers"
     );
-    //wrangling the database data Result object
-    res.json(data.rows);
+    res.json(result.rows);
   } catch (error) {
-    console.error("Error in the biscuits route", error);
-    res.status(500).json({ success: false });
+    console.error("Error in the GET /rtaadventurers route:", error);
+    res.status(500).json({
+      success: false,
+      message: "Unable to retrieve rtaadventurers' data",
+    });
   }
 });
 
-// //TODO: read data from biscuits and customers
-// app.get("/biscuits-customers", async (_, res) => {
-//   try {
-//     const data = await db.query(`
-// SELECT biscuits.biscuit_name AS "biscuitName", biscuits.src AS "imageLink", biscuits.description, biscuits.crunchiness, customers.customer_name AS "customerName"
-// FROM customers JOIN biscuits ON biscuits.customer_id = customers.id;`);
-//     res.json(data.rows);
-//   } catch (error) {
-//     console.error("Error in the biscuits-customers route", error);
-//     res.status(500).json({ success: false });
-//   }
-// });
+//Current Reviewers
+app.get("/rtareviewers", async (req, res) => {
+  try {
+    const result = await db.query(
+      "SELECT name, species, heroclass, textfeedback FROM rtareviewers"
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error in the GET /rtareviewers route:", error);
+    res.status(500).json({
+      success: false,
+      message: "Unable to retrieve rtareviewers' data",
+    });
+  }
+});
 
-// //TODO: create new data in the biscuits table
-// app.post("/add-biscuit", (req, res) => {
-//   // const biscuitData = req.body;
-//   //destructure the body (alternative)
-//   const { biscuitName, src, description, crunchiness, customerId } = req.body;
+// Add new review
+app.post("/rtareviewers", async (req, res) => {
+  const { name, species, heroclass, textfeedback } = req.body;
+  try {
+    const result = await db.query(
+      `INSERT INTO "rtareviewers" (name, species, heroclass, textfeedback) VALUES ($1, $2, $3, $4) RETURNING *`,
+      [name, species, heroclass, textfeedback]
+    );
+    res.status(201).json({
+      success: true,
+      message: "Thank you! Your review has been posted.",
+      data: result.rows[0],
+    });
+  } catch (error) {
+    console.error("Error in the POST /rtareviewers route:", error);
+    res.status(500).json({
+      success: false,
+      message:
+        "Unfortunately, we are unable to post the review at this time. Please try again later!",
+    });
+  }
+});
 
-//   try {
-//     const query = db.query(
-//       `INSERT INTO biscuits (biscuit_name, src, description, crunchiness, customer_id) VALUES
-// ($1, $2, $3, $4, $5);`,
-//       [biscuitName, src, description, crunchiness, customerId]
-//     );
-//     res.status(200).json({ success: true });
-//   } catch (error) {
-//     console.error("Error in add-biscuit route", error);
-//     res.status(500).json({ success: false });
-//   }
-// });
+app.delete("/rtareviewers/:id", async (req, res) => {
+  const reviewPostId = req.params;
 
-// //TODO: delete an entry from the biscuits table
-// app.delete("/delete-biscuit/:id", (req, res) => {
-//   try {
-//     //the request has an object called params
-//     const paramsId = req.params.id;
+  try {
+    const result = await db.query(
+      `DELETE FROM "rtareviewers" WHERE id = $1 RETURNING *`,
+      [reviewPostId]
+    );
 
-//     //destructure the params object
-//     // const { id } = req.params;
+    if (result.rowCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: `Unable to locate review no. ${reviewPostId}. Do you have ReviewVision?`,
+      });
+    }
 
-//     //query the database to delete one entry
-//     const query = db.query(`DELETE FROM biscuits WHERE id = $1 RETURNING *;`, [
-//       paramsId,
-//     ]);
-//   } catch (error) {
-//     console.error("Error in the delete-biscuit route", error);
-//     res.status(500).json({ success: false });
-//   }
-// });
-
-// //TODO: update an entry in the biscuits table
-// app.put("/update-biscuit/:id", (req, res) => {
-//   try {
-//     //you could destructure params and body
-//     const paramsId = req.params.id;
-//     const newData = req.body;
-//     // query my database to update ONE entry
-//     //what specific entry? --> dynamic parameter
-//     //what data do you want to add in place for the current data? --> body
-
-//     const query = db.query(
-//       `UPDATE biscuits SET biscuit_name = $1, src= $2, description= $3, crunchiness= $4, customer_id = $5 WHERE id = $6 RETURNING *;`,
-//       [
-//         newData.biscuitName,
-//         newData.src,
-//         newData.description,
-//         newData.crunchiness,
-//         newData.customerId,
-//         paramsId,
-//       ]
-//     );
-//   } catch (error) {
-//     console.error("Error in update-biscuit route", error);
-//     res.status(500).json({ success: false });
-//   }
-// });
+    res.status(200).json({
+      success: true,
+      message: `Review no. ${reviewPostId} deleted via Mimic gnawing.`,
+    });
+  } catch (error) {
+    console.error("Error in the DELETE /RTAReviewers/:id route:", error);
+    res.status(500).json({
+      success: false,
+      message:
+        "Unable to delete review due to Goblin intervention. Please try again later.",
+    });
+  }
+});
