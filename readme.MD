@@ -22,6 +22,8 @@ For example, /posts/:categoryName.
 
 Overall, a much better week in terms of personal stuff, and despite feeling ill in the week, if an absolute headache of a task due to tech issues. I've been trying to prioritise my own well-being and take time to selfcare, and know when to take breaks, and to step back when I have exhausted what I have to handle it with the time I have. Trying to give myself the space to submit something, knowing that something is better than burning out over trying to hit perfect and not give myself time to rest. Especially as this is likely the last time I'll have the time to see friends outside of the course until November, and sorely needed to recharge my social battery.
 
+Due to this, a very basic styling was applied to prioritise as I'd hoped this would have been more of a functional project with intentions set up for more components and to style though, such as wanting to set adventurerimage to it's own table, and making more of the footer, header, menus and individual adventurer pages, but had to be downscaled to just Khasrae whilst I was troubleshooting. Grand intentions were in place, but, self care needed to be prioritised.
+
 # Issues faced:
 
 A lot of ECONNRefused errors, I've reset the password multiple times, Supabase even flagged about mismatching passwords, so I tried again, but it continues to be an error that is causing me a great deal of stress and I cannot seem to resolve this matter. It appears to connect, but for some reason it fails to retrieve.
