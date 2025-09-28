@@ -1,4 +1,30 @@
+* {
+  background-color: lavender;
+}
+
 .rma-image-segment img {
   width: auto;
   height: 400px;
+}
+
+#rma-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 20px;
+  width: 50%;
+  justify-self: center;
+}
+
+.reviewButton {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.reviewButton:hover {
+  background-color: #fd9800;
+  color: white;
+  font-weight: bolder;
 }

@@ -36,7 +36,7 @@ app.get("/", function (req, res) {
 
 // --  SELECT "RTAAdventurers"."id" AS "RTAAdventurer_id", "RTAAdventurers"."name" AS "RTAAdventurer_name", "RTAReviewers"."name" AS "RTAReviewers_name" FROM "RTAAdventurers" JOIN "RTAReviewers" ON "RTAReviewers"."RTAAdventurer_id" = "RTAAdventurers"."id";
 
-//!I have since tried this with the following, and it still refuses to link / join the tables permanently
+//!I have since tried this with the following using Supabase's assistant in the hopes there was something it could provide an idea to what I was missing when I felt I exhaused all possibilities, and it still refuses to link / join the tables permanently
 // SELECT
 //     r.name,
 //     r.heroclass,
@@ -47,7 +47,7 @@ app.get("/", function (req, res) {
 // JOIN
 //     rtaadventurers AS a
 // ON
-//     r.adventurerid = a.id  -- This correctly links reviews to adventurers
+//     r.adventurerid = a.id
 // WHERE
 //     a.id = 1;
 

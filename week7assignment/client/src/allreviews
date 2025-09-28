@@ -1,13 +1,16 @@
+//originally implemented,
+
 import React, { useState, useEffect } from "react";
 
 function ReviewerList() {
   const [rtareviewers, setrtareviewers] = useState([]);
 
   useEffect(() => {
-    fetch("/api/reviews");
+    fetch("https://week7assignment-nndr.onrender.com/rtareviewers");
   }, []);
 
   //
+  export default function ReviewerList() {}
   return (
     <div>
       <h1>All Reviews</h1>
@@ -23,5 +26,3 @@ function ReviewerList() {
     </div>
   );
 }
-
-export default ReviewerList;
